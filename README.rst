@@ -14,11 +14,18 @@ Zadas nazov miesta, kopca a dostanes suhrnu predpoved na zajtra doobedu.
 TODO
 ----
 - project layout
-- git
 
 Install
 -------
 
 Author
 ------
-Robert Durkaj (developer@durkaj.com)
+- Robert Durkaj
+
+Credit
+------
+- `Kenneth Reitz`_ for the idea: http://docs.python-guide.org/en/latest/ 
+- `Benjamin Gleitzman`_ for the inspiration: https://github.com/gleitz/howdoi 
+
+.. _`Kenneth Reitz`: https://www.kennethreitz.org/
+.. _`Benjamin Gleitzman`: https://github.com/gleitz
