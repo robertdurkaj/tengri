@@ -1,0 +1,8 @@
+# python cached files
+*.pyc
+
+# backup files
+*~
+
+# vim swap files
+*.swp
