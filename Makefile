@@ -2,4 +2,4 @@ init:
 	pip install -r requirements.txt
 
 test:
-	python tests/test_tengri.py
+	python -m unittest discover -v

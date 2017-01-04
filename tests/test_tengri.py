@@ -1,11 +1,7 @@
 import unittest
-import context
 
 from tengri import meteoblue as mb
 from tengri import yrno as yr
-
-# prevent unused warning
-assert context
 
 
 class TestMeteoblue(unittest.TestCase):
@@ -55,7 +51,3 @@ class TestYrNo(unittest.TestCase):
 
     def test_precipation(self):
         self.assertEqual('0 mm', yr.get_precipation(self.get_root()))
-
-
-if __name__ == '__main__':
-    unittest.main()

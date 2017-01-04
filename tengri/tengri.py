@@ -12,7 +12,7 @@ def tengri(place='Dumbier'):
     yrno.forecast()
 
 
-def get_parser():
+def get_arg_parser():
     text = 'Display weather forcasts for specified location'
     parser = argparse.ArgumentParser(description=text)
     # info = 'Location for weather forecast'
@@ -20,12 +20,12 @@ def get_parser():
     return parser
 
 
-def command_line_runner():
-    parser = get_parser()
+def main():
+    parser = get_arg_parser()
     args = parser.parse_args()
     place = getattr(args, 'place', 'Dumbier')
     tengri(place)
 
 
 if __name__ == "__main__":
-    command_line_runner()
+    main()
