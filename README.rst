@@ -1,11 +1,10 @@
 Tengri
 ======
 
-Zadas nazov miesta, kopca a dostanes suhrnu predpoved na zajtra doobedu.
+Wheather forecast from more sources. Enter location and get temperature,
+precipation, wind etc. 
 
-- teplota, zrazky, vietor, oblacnost
-
-**Weby**
+**Sources**
 
 - meteoblue
 - yr.no
@@ -13,7 +12,6 @@ Zadas nazov miesta, kopca a dostanes suhrnu predpoved na zajtra doobedu.
   
 TODO
 ----
-- project layout
 
 Install
 -------

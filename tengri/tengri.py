@@ -2,6 +2,7 @@
 import argparse
 import meteoblue
 import yrno
+import mountain
 
 
 def tengri(place='Dumbier'):
@@ -10,6 +11,8 @@ def tengri(place='Dumbier'):
     meteoblue.forecast()
     print '\nyr.no\n-----'
     yrno.forecast()
+    print '\nmountain-forecast.com\n---------------------'
+    mountain.forecast()
 
 
 def get_arg_parser():
