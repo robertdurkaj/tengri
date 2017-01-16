@@ -1,18 +1,53 @@
 #!/usr/bin/env python
 import argparse
-import meteoblue
-import yrno
-import mountain
+from lxml import html
+
+from pages import meteoblue
+from pages import mountain
+from pages import yrno
+
+NOT_FOUND = '<not found>'
 
 
-def tengri(place='Dumbier'):
+def _load_value(xpath, root):
+    element = root.find(xpath)
+    if element is None:
+        return NOT_FOUND
+    return element.text_content().strip()
+
+
+def _load_root(path):
+    tree = html.parse(path)
+    root = tree.getroot()
+    return root
+
+
+def load_html(page):
+    root = _load_root(page.TEST_FILE)
+    values = []
+    for label, elpath in page.ELEMENTS:
+        xpath = page.PARENT + elpath
+        value = _load_value(xpath, root)
+        if value is NOT_FOUND:
+            continue
+        values.append((label, value))
+    return values
+
+
+def forecast_page(page):
+    values = load_html(page)
+    print '\n{0}'.format(page.SITE)
+    print '-' * len(page.SITE)
+    for label, value in values:
+        print u'{0}: {1}'.format(label, value)
+
+
+def forecast(place='Dumbier'):
     print 'Weather for location: {0}'.format(place)
-    print '\nmeteoblue.com\n-------------'
-    meteoblue.forecast()
-    print '\nyr.no\n-----'
-    yrno.forecast()
-    print '\nmountain-forecast.com\n---------------------'
-    mountain.forecast()
+
+    forecast_page(meteoblue)
+    forecast_page(mountain)
+    forecast_page(yrno)
 
 
 def get_arg_parser():
@@ -27,8 +62,9 @@ def main():
     parser = get_arg_parser()
     args = parser.parse_args()
     place = getattr(args, 'place', 'Dumbier')
-    tengri(place)
+    forecast(place)
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    forecast()
