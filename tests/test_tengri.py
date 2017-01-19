@@ -17,7 +17,7 @@ class TestLoadValue(unittest.TestCase):
 
     def get_root(self):
         if self._root is None:
-            self._root = tengri._load_root(mb.TEST_FILE)
+            self._root = tengri._load_root_from_file(mb.TEST_FILE)
         return self._root
 
     def test_load_value_max_temp(self):
