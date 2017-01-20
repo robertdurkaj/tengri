@@ -25,6 +25,7 @@ USER_AGENTS = (
     'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/31.0',
 )
 NOT_FOUND = '<not found>'
+NOT_FOUND_MSG = 'Place not found on site'
 GOOGLE_SEARCH_URL = 'http://www.google.com/search?q={0}'
 
 
@@ -61,7 +62,7 @@ def load_html(page, response):
 def get_response(url):
     user_agent = random.choice(USER_AGENTS)
     headers = {'User-Agent': user_agent}
-    r = requests.get(url, headers=headers, timeout=1.0)
+    r = requests.get(url, headers=headers, timeout=2.0)
 
     # TODO use logging
     # print '\nRequesting: {0}'.format(url)
@@ -81,37 +82,45 @@ def prepare_query(site, place):
 
 def get_first_link(root):
     a = root.find('.//*[@class="r"]/a')
+    if a is None:
+        return NOT_FOUND
     return a.attrib['href']
 
 
 def forecast_page(page, place):
-    url = prepare_query(page.SITE, place)
-    r = get_response(url)
-
-    root = _load_root_from_string(r.text)
-    link = get_first_link(root)
-    r = get_response(link)
-
-    values = load_html(page, r)
     print '\n{0}'.format(page.SITE)
     print '-' * len(page.SITE)
-    for label, value in values:
-        print u'{0}: {1}'.format(label, value)
+
+    try:
+        url = prepare_query(page.SITE, place)
+        r = get_response(url)
+        root = _load_root_from_string(r.text)
+        link_url = get_first_link(root)
+        if link_url == NOT_FOUND:
+            print NOT_FOUND_MSG
+            return
+
+        r = get_response(link_url)
+
+        values = load_html(page, r)
+        for label, value in values:
+            print u'{0}: {1}'.format(label, value)
+    except requests.exceptions.ConnectionError:
+        print 'Network connection error'
 
 
-def forecast(place='Dumbier'):
+def forecast(place):
     print 'Weather for location: {0}'.format(place)
 
-    forecast_page(meteoblue, place)
-    forecast_page(mountain, place)
-    forecast_page(yrno, place)
+    for page in (meteoblue, mountain, yrno):
+        forecast_page(page, place)
 
 
 def get_arg_parser():
     text = 'Display weather forcasts for specified location'
     parser = argparse.ArgumentParser(description=text)
-    # info = 'Location for weather forecast'
-    # parser.add_argument('place', help=info)
+    info = 'Location for weather forecast'
+    parser.add_argument('place', help=info)
     return parser
 
 
@@ -123,5 +132,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    forecast()
+    main()

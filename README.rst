@@ -12,6 +12,7 @@ precipation, wind etc.
   
 TODO
 ----
+- write docstrings
 
 Install
 -------

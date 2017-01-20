@@ -32,6 +32,12 @@ class TestLoadValue(unittest.TestCase):
         v = tengri._load_value(path, root)
         self.assertEqual(tengri.NOT_FOUND, v)
 
+    def test_get_first_link_not_found(self):
+        html_string = '<html><body><p>No links</p></body></html>'
+        root = tengri._load_root_from_string(html_string)
+        v = tengri.get_first_link(root)
+        self.assertEqual(v, tengri.NOT_FOUND)
+
 
 if __name__ == '__main__':
     unittest.main()
