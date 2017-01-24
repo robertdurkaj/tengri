@@ -30,32 +30,33 @@ GOOGLE_SEARCH_URL = 'http://www.google.com/search?q={0}'
 
 
 def _load_value(xpath, root):
-    element = root.find(xpath)
+    element = root.find(xpath)  # type: html.HtmlElement
     if element is None:
         return NOT_FOUND
-    return element.text_content().strip()
+    value = element.text_content()
+    value = ' '.join(value.split())  # remove unwanted space characters
+    return value
 
 
 def _load_root_from_file(path):
+    """ :param str path: The path of the file """
     tree = html.parse(path)
-    root = tree.getroot()
+    root = tree.getroot()  # type: html.HtmlElement
     return root
 
 
-def _load_root_from_string(str):
-    root = html.fromstring(str)
+def _load_root_from_string(text):
+    root = html.fromstring(text)
     return root
 
 
 def load_html(page, response):
     root = _load_root_from_string(response.text)
     values = []
-    for label, elpath in page.ELEMENTS:
-        xpath = page.PARENT + elpath
+    for label, xpath in page.LINES:
         value = _load_value(xpath, root)
-        if value is NOT_FOUND:
-            continue
-        values.append((label, value))
+        if value is not NOT_FOUND:
+            values.append((label, value))
     return values
 
 

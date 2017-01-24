@@ -13,6 +13,9 @@ precipation, wind etc.
 TODO
 ----
 - write docstrings
+- type hints to allow autocomplete
+- allow multi word place names (Eg. Grosses Wiessbachhorn)
+
 
 Install
 -------
