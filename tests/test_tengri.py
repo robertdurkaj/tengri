@@ -1,45 +1,38 @@
 # coding=UTF-8
-import unittest
+"""
+    tests.tengri
+    -----------------
 
-if __name__ == '__main__':
-    import sys
-    import os
-    sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+    Unit tests.
 
-if True:  # prevent Flake8 warning
-    from tengri import tengri
-    from tengri.pages import meteoblue as mb
+    :copyright: (c) 2017 by Robert Durkaj.
+    :license: MIT, see the LICENSE for more details.
+"""
+import pytest
 
-
-class TestLoadValue(unittest.TestCase):
-
-    _root = None
-
-    def get_root(self):
-        if self._root is None:
-            self._root = tengri._load_root_from_file(mb.TEST_FILE)
-        return self._root
-
-    def test_load_value_max_temp(self):
-        root = self.get_root()
-        path = mb.PARENT + '//div[@class="tab_temp_max"]'
-        v = tengri._load_value(path, root)
-        self.assertEqual(u'-13 °C', v)
-
-    def test_load_value_not_found(self):
-        root = self.get_root()
-        path = 'not found'
-        v = tengri._load_value(path, root)
-        self.assertEqual(tengri.NOT_FOUND, v)
-
-    def test_get_first_link_not_found(self):
-        html_string = '<html><body><p>No links</p></body></html>'
-        root = tengri._load_root_from_string(html_string)
-        v = tengri.get_first_link(root)
-        self.assertEqual(v, tengri.NOT_FOUND)
+from tengri import tengri
+from tengri.pages import meteoblue
 
 
-if __name__ == '__main__':
-    unittest.main()
-    # suite = unittest.TestLoader().loadTestsFromTestCase(TestLoadValue)
-    # suite.debug()
+@pytest.fixture(scope="module")
+def root():
+    return tengri._load_root_from_file(meteoblue.TEST_FILE)
+
+
+def test_load_value_max_temp(root):
+    xpath = './/div[@id="day2"]//div[@class="tab_temp_max"]'
+    v = tengri._load_value(xpath, root)
+    assert v == u'-13 °C'
+
+
+def test_load_value_not_found(root):
+    path = 'not found'
+    v = tengri._load_value(path, root)
+    assert v == tengri.NOT_FOUND
+
+
+def test_get_first_link_not_found():
+    html_string = '<html><body><p>No links</p></body></html>'
+    root = tengri._load_root_from_string(html_string)
+    v = tengri.get_first_link(root)
+    assert v == tengri.NOT_FOUND

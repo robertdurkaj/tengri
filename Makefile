@@ -2,4 +2,6 @@ init:
 	pip install -r requirements.txt
 
 test:
-	python -m unittest discover -v
+	pytest
+	# python -m unittest discover -v
+	# nosetests -v --pdb

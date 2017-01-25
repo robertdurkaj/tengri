@@ -6,3 +6,5 @@
 
 # vim swap files
 *.swp
+
+.cache

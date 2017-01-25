@@ -1,7 +1,18 @@
 #!/usr/bin/env python
+# coding=UTF-8
+"""
+    tengri
+    -----------------
+
+    Display weather forecast for specified location.
+
+    :copyright: (c) 2017 by Robert Durkaj.
+    :license: MIT, see the LICENSE for more details.
+"""
 import argparse
-import requests
 import random
+
+import requests
 from lxml import html
 
 from pages import meteoblue
