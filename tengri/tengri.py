@@ -34,11 +34,17 @@ USER_AGENTS = (
     'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/31.0',
 )
 NOT_FOUND = '<not found>'
-NOT_FOUND_MSG = 'Place not found on site'
 GOOGLE_SEARCH_URL = 'http://www.google.com/search?q={0}'
+NO_RESULTS = '<no results>'
+NO_RESULTS_MSG = 'Place not found on site'
 
 
 def _load_value(xpath, root):
+    """ Return text content of the first element specified by `xpath`.
+    :param str xpath: XPath of the element.
+    :param root: Root element.
+    """
+
     element = root.find(xpath)  # type: html.HtmlElement
     if element is None:
         return NOT_FOUND
@@ -48,18 +54,25 @@ def _load_value(xpath, root):
 
 
 def _load_root_from_file(path):
-    """ :param str path: The path of the file """
+    """ Return root element from HTML file.
+    :param str path: The path of HTML file.
+    """
+
     tree = html.parse(path)
     root = tree.getroot()  # type: html.HtmlElement
     return root
 
 
 def _load_root_from_string(text):
+    """ Return root element of HTML passed as `text`. """
+
     root = html.fromstring(text)
     return root
 
 
 def load_html(page, response):
+    """ Return values found in HTML response. """
+
     root = _load_root_from_string(response.text)
     values = []
     for label, xpath in page.LINES:
@@ -70,6 +83,8 @@ def load_html(page, response):
 
 
 def get_response(url):
+    """ Return HTML response from `url`. """
+
     user_agent = random.choice(USER_AGENTS)
     headers = {'User-Agent': user_agent}
     r = requests.get(url, headers=headers, timeout=2.0)
@@ -86,18 +101,24 @@ def get_response(url):
 
 
 def prepare_query(site, place):
+    """ Return search query for `site` and `place`. """
+
     query = 'site:{0}+{1}'.format(site, place)
     return GOOGLE_SEARCH_URL.format(query)
 
 
 def get_first_link(root):
+    """ Return first result from `root` element. """
+
     a = root.find('.//*[@class="r"]/a')
     if a is None:
-        return NOT_FOUND
+        return NO_RESULTS
     return a.attrib['href']
 
 
 def forecast_page(page, place):
+    """ Process weather forecast for `page` and `place. Print all values. """
+
     print '\n{0}'.format(page.SITE)
     print '-' * len(page.SITE)
 
@@ -106,8 +127,8 @@ def forecast_page(page, place):
         r = get_response(url)
         root = _load_root_from_string(r.text)
         link_url = get_first_link(root)
-        if link_url == NOT_FOUND:
-            print NOT_FOUND_MSG
+        if link_url == NO_RESULTS:
+            print NO_RESULTS_MSG
             return
 
         r = get_response(link_url)
@@ -120,13 +141,17 @@ def forecast_page(page, place):
 
 
 def forecast(place):
-    print 'Weather for location: {0}'.format(place)
+    """ Main forecast function. """
 
+    print '\nWeather for place: {0}'.format(place)
     for page in (meteoblue, mountain, yrno):
         forecast_page(page, place)
+    print ''
 
 
 def get_arg_parser():
+    """ Return cmd argument parser. """
+
     text = 'Display weather forcasts for specified location'
     parser = argparse.ArgumentParser(description=text)
     info = 'Location for weather forecast'
@@ -135,6 +160,8 @@ def get_arg_parser():
 
 
 def cmd_launcher():
+    """ Main entry point of application. """
+
     parser = get_arg_parser()
     args = parser.parse_args()
     place = getattr(args, 'place', 'Dumbier')
