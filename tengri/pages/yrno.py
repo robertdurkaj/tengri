@@ -1,8 +1,6 @@
 SITE = 'yr.no'
-TEST_FILE = 'tests/html/yrno.html'
 
 _day_table = './/*[@id="ctl00_ctl00_contentBody"]/div[2]/div[2]/table[2]'
-
 LINES = (
     ('',                './/*[@id="ctl00_ctl00_contentBody"]/div[1]/h1/span'),
     ('',                    _day_table + '/caption'),

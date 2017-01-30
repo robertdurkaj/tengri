@@ -1,5 +1,4 @@
 SITE = 'mountain-forecast.com'
-TEST_FILE = 'tests/html/mountain-forecast.html'
 
 _day_table = './/div[@id="forecast-cont"]/table'
 LINES = (

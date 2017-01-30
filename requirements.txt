@@ -1,2 +1,2 @@
-lxml==3.7.1
-requests==2.12.5
+-e .
+pytest

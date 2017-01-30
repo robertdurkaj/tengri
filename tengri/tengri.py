@@ -15,9 +15,7 @@ import random
 import requests
 from lxml import html
 
-from pages import meteoblue
-from pages import mountain
-from pages import yrno
+from pages import meteoblue, mountain, yrno
 
 # User-Agents from "http://useragentstring.com"
 USER_AGENTS = (
@@ -136,7 +134,7 @@ def get_arg_parser():
     return parser
 
 
-def main():
+def cmd_launcher():
     parser = get_arg_parser()
     args = parser.parse_args()
     place = getattr(args, 'place', 'Dumbier')
@@ -144,4 +142,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    cmd_launcher()

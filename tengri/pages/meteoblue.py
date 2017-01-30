@@ -1,5 +1,4 @@
 SITE = 'meteoblue.com'
-TEST_FILE = 'tests/html/meteoblue.html'
 
 _day_div = './/div[@id="day2"]'
 LINES = (

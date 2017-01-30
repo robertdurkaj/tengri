@@ -11,12 +11,12 @@
 import pytest
 
 from tengri import tengri
-from tengri.pages import meteoblue
 
 
 @pytest.fixture(scope="module")
 def root():
-    return tengri._load_root_from_file(meteoblue.TEST_FILE)
+    test_file = 'tests/html/meteoblue.html'
+    return tengri._load_root_from_file(test_file)
 
 
 def test_load_value_max_temp(root):
