@@ -143,7 +143,7 @@ def forecast_page(page, place):
 def forecast(place):
     """ Main forecast function. """
 
-    print '\nWeather for place: {0}'.format(place)
+    print '\nTengri weather report for: "{0}"'.format(place)
     for page in (meteoblue, mountain, yrno):
         forecast_page(page, place)
     print ''
@@ -155,7 +155,7 @@ def get_arg_parser():
     text = 'Display weather forcasts for specified location'
     parser = argparse.ArgumentParser(description=text)
     info = 'Location for weather forecast'
-    parser.add_argument('place', help=info)
+    parser.add_argument('place', nargs='+', help=info)
     return parser
 
 
@@ -165,6 +165,7 @@ def cmd_launcher():
     parser = get_arg_parser()
     args = parser.parse_args()
     place = getattr(args, 'place', 'Dumbier')
+    place = ' '.join(place)
     forecast(place)
 
 

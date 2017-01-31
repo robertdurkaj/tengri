@@ -1,28 +1,31 @@
 Tengri
 ======
 
-Wheather forecast from more sources. Enter location and get temperature,
-precipation, wind etc. 
+Quickly find weather forecasts for your place of interest.
 
-**Sources**
+Tengri command line tool searches predefined internet sources and prints
+weather data for next morning.
+
+**Internet sources**
 
 - meteoblue
 - yr.no
 - mountain-forecast.com
+
   
 TODO
 ----
-- write docstrings
-- type hints to allow autocomplete
-- allow multi word place names (Eg. Grosses Wiessbachhorn)
 
 
 Install
 -------
+TODO
+
 
 Author
 ------
 - Robert Durkaj
+
 
 Credit
 ------
