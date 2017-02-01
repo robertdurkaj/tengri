@@ -18,14 +18,14 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='tengri',
+    name='TengriWeather',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version=tengri.__version__,
 
-    description='Weather forecast',
+    description='Weather scraping command-line tool',
     long_description=long_description,
 
     # The project's main homepage.
@@ -47,7 +47,8 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: End Users/Desktop',
-        'Topic :: Internet',
+        'Topic :: Internet :: WWW/HTTP',
+        'Envirnoment :: Console',
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',

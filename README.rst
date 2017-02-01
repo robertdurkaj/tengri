@@ -1,25 +1,39 @@
-Tengri
-======
+TengriWeather
+=============
 
-Quickly find weather forecasts for your place of interest.
+Do you regularly check weather forecast a day before an activity? This simple command-line tool scrapes the following web forecasts for you:
 
-Tengri command line tool searches predefined internet sources and prints
-weather data for next morning.
-
-**Internet sources**
-
-- meteoblue
+- meteoblue.com
 - yr.no
 - mountain-forecast.com
 
-  
-TODO
-----
+Usage example::
 
+  tengri Khan Tengri
 
-Install
--------
-TODO
+Output::
+
+  Tengri weather report for: "Khan Tengri"
+
+  meteoblue.com
+  -------------
+  : Weather Khan Tängiri Shyngy
+  : Kazakhstan, 42.21°N 80.18°E 6995m asl
+  : Tomorrow
+  Max temp: -28 °C
+  Min temp: -36 °C
+  Wind: 10 km/h
+  ...
+
+Installation
+------------
+Local in editable mode::
+
+  pip install -e .
+
+Form PyPI::
+
+  pip install TengriWeather
 
 
 Author
