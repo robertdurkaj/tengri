@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=UTF-8
 """
-    tengri
+    tengri.weather
     -----------------
 
     Display weather forecast for specified location.
@@ -16,6 +16,8 @@ import requests
 from lxml import html
 
 from pages import meteoblue, mountain, yrno
+
+__version__ = '0.1.dev1'
 
 # User-Agents from "http://useragentstring.com"
 USER_AGENTS = (
@@ -144,6 +146,7 @@ def forecast(place):
     """ Main forecast function. """
 
     print '\nTengri weather report for: "{0}"'.format(place)
+    print 'version {0}'.format(__version__)
     for page in (meteoblue, mountain, yrno):
         forecast_page(page, place)
     print ''
@@ -164,10 +167,6 @@ def cmd_launcher():
 
     parser = get_arg_parser()
     args = parser.parse_args()
-    place = getattr(args, 'place', 'Dumbier')
+    place = getattr(args, 'place', ['Khan', 'Tengri'])
     place = ' '.join(place)
     forecast(place)
-
-
-if __name__ == "__main__":
-    cmd_launcher()

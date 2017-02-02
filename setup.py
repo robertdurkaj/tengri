@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-import tengri
+from tengri.weather import __version__
 
 here = path.abspath(path.dirname(__file__))
 
@@ -18,14 +18,14 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='TengriWeather',
+    name='tengri',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=tengri.__version__,
+    version=__version__,
 
-    description='Weather scraping command-line tool',
+    description='Tengri - Weather scraping command-line tool',
     long_description=long_description,
 
     # The project's main homepage.
@@ -60,7 +60,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='weather forecast mountain',
+    keywords='weather forecast web-scraping',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -99,7 +99,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'tengri=tengri:main',
+            'tengri=tengri.weather:cmd_launcher',
         ],
     },
 )

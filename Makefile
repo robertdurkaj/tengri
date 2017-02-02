@@ -3,8 +3,6 @@ init:
 
 test:
 	pytest
-	# python -m unittest discover -v
-	# nosetests -v --pdb
 
 clean:
 	# Remove all bytecode files
