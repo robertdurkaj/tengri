@@ -16,8 +16,7 @@ import requests
 from lxml import html
 
 from pages import meteoblue, mountain, yrno
-
-__version__ = '0.1.dev1'
+from version import __version__
 
 # User-Agents from "http://useragentstring.com"
 USER_AGENTS = (

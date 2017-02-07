@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-from tengri.weather import __version__
+from tengri.version import __version__
 
 here = path.abspath(path.dirname(__file__))
 
