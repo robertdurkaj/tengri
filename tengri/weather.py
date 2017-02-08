@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding=UTF-8
 """
     tengri.weather
@@ -15,25 +14,10 @@ import random
 import requests
 from lxml import html
 
-from pages import meteoblue, mountain, yrno
+# from pages import meteoblue, mountain, yrno
+import web
 from version import __version__
 
-# User-Agents from "http://useragentstring.com"
-USER_AGENTS = (
-    ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) '
-     'AppleWebKit/537.36 (KHTML, like Gecko) '
-     'Chrome/41.0.2227.1 Safari/537.36'),
-    ('Mozilla/5.0 (Windows NT 6.1) '
-     'AppleWebKit/537.36 (KHTML, like Gecko) '
-     'Chrome/41.0.2228.0 Safari/537.36'),
-    ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) '
-     'AppleWebKit/602.3.12 (KHTML, like Gecko) '
-     'Version/10.0.2 Safari/602.3.12'),
-    'Mozilla/5.0 (Windows NT 6.1; x64; rv:25.0) Gecko/20100101 Firefox/29.0',
-    ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10; rv:33.0) '
-     'Gecko/20100101 Firefox/33.0'),
-    'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/31.0',
-)
 NOT_FOUND = '<not found>'
 GOOGLE_SEARCH_URL = 'http://www.google.com/search?q={0}'
 NO_RESULTS = '<no results>'
@@ -76,7 +60,7 @@ def load_html(page, response):
 
     root = _load_root_from_string(response.text)
     values = []
-    for label, xpath in page.LINES:
+    for label, xpath in page['lines']:
         value = _load_value(xpath, root)
         if value is not NOT_FOUND:
             values.append((label, value))
@@ -86,7 +70,7 @@ def load_html(page, response):
 def get_response(url):
     """ Return HTML response from `url`. """
 
-    user_agent = random.choice(USER_AGENTS)
+    user_agent = random.choice(web.USER_AGENTS)
     headers = {'User-Agent': user_agent}
     r = requests.get(url, headers=headers, timeout=2.0)
 
@@ -120,11 +104,12 @@ def get_first_link(root):
 def forecast_page(page, place):
     """ Process weather forecast for `page` and `place. Print all values. """
 
-    print '\n{0}'.format(page.SITE)
-    print '-' * len(page.SITE)
+    site = page['site']
+    print '\n{0}'.format(site)
+    print '-' * len(site)
 
     try:
-        url = prepare_query(page.SITE, place)
+        url = prepare_query(site, place)
         r = get_response(url)
         root = _load_root_from_string(r.text)
         link_url = get_first_link(root)
@@ -146,7 +131,7 @@ def forecast(place):
 
     print '\nTengri weather report for: "{0}"'.format(place)
     print 'version {0}'.format(__version__)
-    for page in (meteoblue, mountain, yrno):
+    for page in web.weather_pages():
         forecast_page(page, place)
     print ''
 
