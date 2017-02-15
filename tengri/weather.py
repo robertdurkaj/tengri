@@ -1,4 +1,4 @@
-# coding=UTF-8
+# -*- coding: utf-8 -*-
 """
     tengri.weather
     -----------------
@@ -16,7 +16,7 @@ from lxml import html
 
 # from pages import meteoblue, mountain, yrno
 import web
-from version import __version__
+from tengri import __version__
 
 NOT_FOUND = '<not found>'
 GOOGLE_SEARCH_URL = 'http://www.google.com/search?q={0}'
