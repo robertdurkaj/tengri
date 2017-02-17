@@ -3,9 +3,9 @@ TengriWeather
 
 Do you regularly check weather forecast a day before an activity? This simple command-line tool scrapes the following web forecasts for you:
 
-- meteoblue.com
-- yr.no
-- mountain-forecast.com
+- www.meteoblue.com
+- www.yr.no
+- www.mountain-forecast.com
 
 Usage example::
 
