@@ -25,15 +25,19 @@ Output::
   Wind: 10 km/h
   ...
 
-Installation
-------------
-Local in editable mode::
+
+Develop
+-------
+For development install in editable mode::
 
   pip install -e .
 
-Form PyPI::
 
-  pip install TengriWeather
+.. Install
+.. -------
+.. Form PyPI::
+
+..   pip install tengri
 
 
 Author
