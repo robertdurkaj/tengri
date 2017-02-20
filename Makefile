@@ -3,6 +3,7 @@ init:
 
 test:
 	pytest
+	# pytest --cov=tengri
 
 clean:
 	# Remove all bytecode files
