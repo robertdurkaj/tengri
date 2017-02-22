@@ -42,3 +42,53 @@ def test_get_first_link_no_results():
     root = weather._load_root_from_string(html_string)
     v = weather.get_first_link(root)
     assert v == weather.NO_RESULTS
+
+
+def test_load_html_empty_result():
+    """ Test load_html function """
+
+    htmltext = "<html></html>"
+    page = dict(lines=(('', './/div[@id="day2"]'),))
+    values = weather.load_html(page, htmltext)
+    assert values == []
+
+
+def test_load_html_with_result():
+    """ Test load_html function """
+
+    text = "content"
+    htmltext = "<html><div id='day2'>{0}</div></html>".format(text)
+    page = dict(lines=(('label', './/div[@id="day2"]'),))
+    values = weather.load_html(page, htmltext)
+    assert values == [('label', text)]
+
+
+def test_prepare_query():
+    """ Test prepare_query function """
+
+    site = r'http://www.test.org'
+    place = 'Khan Tengri'
+    result = weather.prepare_query(site, place)
+    assert result.startswith(weather.GOOGLE_SEARCH_URL[:-3])
+
+
+def test_forecast_invalid_place():
+    """ Test forecast function """
+
+    with pytest.raises(ValueError):
+        weather.forecast('    ')
+
+    with pytest.raises(AttributeError):
+        weather.forecast(None)
+
+    with pytest.raises(AttributeError):
+        weather.forecast(123)
+
+
+def test_get_arg_parser():
+    """ Test get_arg_parser function """
+
+    p = weather.get_arg_parser()
+    assert p.description is not None
+    a = p.parse_args('Khan Tengri'.split())
+    assert a.place == ['Khan', 'Tengri']

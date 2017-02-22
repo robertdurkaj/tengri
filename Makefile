@@ -4,6 +4,7 @@ init:
 test:
 	pytest
 	# pytest --cov=tengri
+	# pytest --cov=tengri --cov-report term-missing 
 
 clean:
 	# Remove all bytecode files

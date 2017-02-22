@@ -55,10 +55,10 @@ def _load_root_from_string(text):
     return root
 
 
-def load_html(page, response):
+def load_html(page, htmltext):
     """ Return values found in HTML response. """
 
-    root = _load_root_from_string(response.text)
+    root = _load_root_from_string(htmltext)
     values = []
     for label, xpath in page['lines']:
         value = _load_value(xpath, root)
@@ -119,18 +119,23 @@ def forecast_page(page, place):
 
         r = get_response(link_url)
 
-        values = load_html(page, r)
+        values = load_html(page, r.text)
         for label, value in values:
             print u'{0}: {1}'.format(label, value)
     except requests.exceptions.ConnectionError:
         print 'Network connection error'
 
 
-def forecast(place):
+def forecast(place, show_version=True):
     """ Main forecast function. """
 
+    place = place.strip()
+    if not place:
+        raise ValueError('place must not be empty')
+
     print '\nTengri weather report for: "{0}"'.format(place)
-    print 'version {0}'.format(__version__)
+    if show_version:
+        print 'version {0}'.format(__version__)
     for page in web.weather_pages():
         forecast_page(page, place)
     print ''
@@ -151,6 +156,5 @@ def cmd_launcher():
 
     parser = get_arg_parser()
     args = parser.parse_args()
-    place = getattr(args, 'place', ['Khan', 'Tengri'])
-    place = ' '.join(place)
+    place = ' '.join(args.place)
     forecast(place)
