@@ -26,7 +26,7 @@ USER_AGENTS = (
 )
 
 
-def meteoblue_page():
+def _meteoblue_page():
     site = 'meteoblue.com'
     div = './/div[@id="day2"]'
     lines = (
@@ -41,7 +41,7 @@ def meteoblue_page():
     return locals()
 
 
-def mountain_page():
+def _mountain_page():
     site = 'mountain-forecast.com'
     table = './/div[@id="forecast-cont"]/table'
     lines = (
@@ -58,7 +58,7 @@ def mountain_page():
     return locals()
 
 
-def yrno_page():
+def _yrno_page():
     site = 'yr.no'
     table = './/*[@id="ctl00_ctl00_contentBody"]/div[2]/div[2]/table[2]'
     lines = (
@@ -73,4 +73,4 @@ def yrno_page():
 
 
 def weather_pages():
-    return meteoblue_page(), mountain_page(), yrno_page()
+    return _meteoblue_page(), _mountain_page(), _yrno_page()

@@ -11,6 +11,7 @@
 import pytest
 
 from tengri import weather
+from tengri import web
 
 
 @pytest.fixture(scope="module")
@@ -72,17 +73,17 @@ def test_prepare_query():
     assert result.startswith(weather.GOOGLE_SEARCH_URL[:-3])
 
 
-def test_forecast_invalid_place():
-    """ Test forecast function """
+def test_get_valid_place_empty():
+    """ Test get_valid_place function """
 
     with pytest.raises(ValueError):
-        weather.forecast('    ')
+        weather.get_valid_place('    ')
 
-    with pytest.raises(AttributeError):
-        weather.forecast(None)
 
-    with pytest.raises(AttributeError):
-        weather.forecast(123)
+def test_get_valid_place_spaces():
+    """ Test get_valid_place function """
+
+    assert "Tengri" == weather.get_valid_place("  Tengri  ")
 
 
 def test_get_arg_parser():
@@ -90,5 +91,12 @@ def test_get_arg_parser():
 
     p = weather.get_arg_parser()
     assert p.description is not None
+
     a = p.parse_args('Khan Tengri'.split())
     assert a.place == ['Khan', 'Tengri']
+
+
+def test_weather_pages():
+    """ Test weather_pages function. """
+
+    assert len(web.weather_pages()) == 3

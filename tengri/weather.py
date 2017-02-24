@@ -129,16 +129,26 @@ def forecast_page(page, place):
 def forecast(place, show_version=True):
     """ Main forecast function. """
 
-    place = place.strip()
-    if not place:
-        raise ValueError('place must not be empty')
-
     print '\nTengri weather report for: "{0}"'.format(place)
+
     if show_version:
         print 'version {0}'.format(__version__)
+
     for page in web.weather_pages():
         forecast_page(page, place)
     print ''
+
+
+def get_valid_place(place):
+    """ Return valid place.
+
+    Strip spaces and check for empty value."""
+
+    place = place.strip()
+    if not place:
+        raise ValueError('empty string')
+
+    return place
 
 
 def get_arg_parser():
@@ -157,4 +167,6 @@ def cmd_launcher():
     parser = get_arg_parser()
     args = parser.parse_args()
     place = ' '.join(args.place)
+
+    place = get_valid_place(place)
     forecast(place)
