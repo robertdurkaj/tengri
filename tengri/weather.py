@@ -8,14 +8,14 @@
     :copyright: (c) 2017 by Robert Durkaj.
     :license: MIT, see the LICENSE for more details.
 """
+from __future__ import print_function
 import argparse
 import random
 
 import requests
 from lxml import html
 
-# from pages import meteoblue, mountain, yrno
-import web
+from tengri import web
 from tengri import __version__
 
 NOT_FOUND = '<not found>'
@@ -105,8 +105,8 @@ def forecast_page(page, place):
     """ Process weather forecast for `page` and `place. Print all values. """
 
     site = page['site']
-    print '\n{0}'.format(site)
-    print '-' * len(site)
+    print('\n{0}'.format(site))
+    print('-' * len(site))
 
     try:
         url = prepare_query(site, place)
@@ -114,29 +114,29 @@ def forecast_page(page, place):
         root = _load_root_from_string(r.text)
         link_url = get_first_link(root)
         if link_url == NO_RESULTS:
-            print NO_RESULTS_MSG
+            print(NO_RESULTS_MSG)
             return
 
         r = get_response(link_url)
 
         values = load_html(page, r.text)
         for label, value in values:
-            print u'{0}: {1}'.format(label, value)
+            print(u'{0}: {1}'.format(label, value))
     except requests.exceptions.ConnectionError:
-        print 'Network connection error'
+        print('Network connection error')
 
 
 def forecast(place, show_version=True):
     """ Main forecast function. """
 
-    print '\nTengri weather report for: "{0}"'.format(place)
+    print('\nTengri weather report for: "{0}"'.format(place))
 
     if show_version:
-        print 'version {0}'.format(__version__)
+        print('version {0}'.format(__version__))
 
     for page in web.weather_pages():
         forecast_page(page, place)
-    print ''
+    print('')
 
 
 def get_valid_place(place):
