@@ -29,7 +29,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='http://robert.durkaj.com',
+    url='https://github.com/robertdurkaj/tengri',
 
     # Author details
     author='Robert Durkaj',

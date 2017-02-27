@@ -9,3 +9,6 @@ test:
 clean:
 	# Remove all bytecode files
 	find . -type f -name "*.py[co]" -delete
+
+build:
+	python setup.py bdist_wheel
