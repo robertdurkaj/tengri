@@ -1,7 +1,8 @@
-TengriWeather
-=============
+Tengri
+======
 
-Do you regularly check weather forecast a day before an activity? This simple command-line tool scrapes the following web forecasts for you:
+Do you regularly check weather forecast a day before an activity? This
+command-line tool scrapes the following web forecasts for you:
 
 - `www.meteoblue.com`_
 - `www.yr.no`_
@@ -26,6 +27,13 @@ Output::
   ...
 
 
+Install
+-------
+To install Tengri::
+
+  pip install tengri
+
+
 Develop
 -------
 To start working on project, install it in editable (development) mode. This
@@ -42,7 +50,8 @@ Then from project dir run tests by::
 
   $ pytest
 
-To undo the development setup, use ``pip uninstall`` command. It updates python path and removes launch script::
+To undo the development setup, use ``pip uninstall`` command. It updates python
+path and removes launch script::
 
   $ pip uninstall tengri
 
@@ -50,13 +59,6 @@ If you are working on many python projects consider using `virtualenv`_.
 
 For convenience ``make`` is used to facilitate project setup (see
 ``Makefile`` and ``requirements.txt``).
-
-
-.. Install
-.. -------
-.. Form PyPI::
-
-..   pip install tengri
 
 
 Author

@@ -25,7 +25,7 @@ setup(
     # https://packaging.python.org/en/latest/single_source_version.html
     version=__version__,
 
-    description='Tengri - Weather scraping command-line tool',
+    description='Weather scraping command-line tool',
     long_description=long_description,
 
     # The project's main homepage.
@@ -43,12 +43,12 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
         'Intended Audience :: End Users/Desktop',
         'Topic :: Internet :: WWW/HTTP',
-        'Envirnoment :: Console',
+        'Environment :: Console',
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
