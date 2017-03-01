@@ -1,6 +1,9 @@
 Tengri
 ======
 
+.. image:: https://travis-ci.org/robertdurkaj/tengri.svg?branch=master
+  :target: https://travis-ci.org/robertdurkaj/tengri
+
 Do you regularly check weather forecast a day before an activity? This
 command-line tool scrapes the following web forecasts for you:
 
