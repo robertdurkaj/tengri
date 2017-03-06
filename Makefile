@@ -6,12 +6,12 @@ init:
 
 
 test:
-	pytest
+	py.test
 
 
 coverage:
 # pytest --cov=tengri
-	pytest --cov=tengri --cov-report term-missing 
+	py.test --cov=tengri --cov-report term-missing 
 
 
 # Remove all bytecode files
@@ -24,9 +24,9 @@ build:
 	python setup.py bdist_wheel
 
 
-# publish:
-# 	pip install twine
-# 	twine upload dist/*
+publish:
+	pip install twine
+	twine upload dist/*
 
 
 clean:
