@@ -85,6 +85,13 @@ def get_response(url):
     return r
 
 
+def get_response_text(url):
+    """ Return HTML response as text """
+
+    response = get_response(url)
+    return response.text
+
+
 def prepare_query(site, place):
     """ Return search query for `site` and `place`. """
 
@@ -101,6 +108,14 @@ def get_first_link(root):
     return a.attrib['href']
 
 
+def get_result_url(search_url):
+    """ Load search result page and return first result url. """
+
+    html = get_response_text(search_url)
+    root = _load_root_from_string(html)
+    return get_first_link(root)
+
+
 def forecast_page(page, place):
     """ Process weather forecast for `page` and `place. Print all values. """
 
@@ -109,17 +124,14 @@ def forecast_page(page, place):
     print('-' * len(site))
 
     try:
-        url = prepare_query(site, place)
-        r = get_response(url)
-        root = _load_root_from_string(r.text)
-        link_url = get_first_link(root)
-        if link_url == NO_RESULTS:
+        search_url = prepare_query(site, place)
+        result_url = get_result_url(search_url)
+        if result_url == NO_RESULTS:
             print(NO_RESULTS_MSG)
             return
 
-        r = get_response(link_url)
-
-        values = load_html(page, r.text)
+        html = get_response_text(result_url)
+        values = load_html(page, html)
         for label, value in values:
             print(u'{0}: {1}'.format(label, value))
     except requests.exceptions.ConnectionError:

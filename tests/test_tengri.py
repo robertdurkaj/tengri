@@ -9,6 +9,8 @@
     :license: MIT, see the LICENSE for more details.
 """
 import pytest
+import mock
+import io
 
 from tengri import weather
 from tengri import web
@@ -100,3 +102,28 @@ def test_weather_pages():
     """ Test weather_pages function. """
 
     assert len(web.weather_pages()) == 3
+
+
+def test_forecast_page_noresult():
+    """ Test forecast_page function """
+
+    weather.get_result_url = mock.Mock(return_value=weather.NO_RESULTS)
+    weather.forecast_page(web._meteoblue_page(), "place")
+
+
+def test_forecast_page_success():
+    """ Test forecast_page function """
+
+    with io.open('tests/html/meteoblue.html', encoding='utf-8') as f:
+        html = f.read()
+
+    weather.get_result_url = mock.Mock(return_value="url")
+    weather.get_response_text = mock.Mock(return_value=html)
+    weather.forecast_page(web._meteoblue_page(), "place")
+
+
+def test_forecast():
+    """ Test main forecast function """
+
+    weather.forecast_page = mock.Mock(return_value=None)
+    weather.forecast("place")
