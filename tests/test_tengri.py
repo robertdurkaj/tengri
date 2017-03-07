@@ -18,7 +18,7 @@ from tengri import web
 
 @pytest.fixture(scope="module")
 def root():
-    test_file = 'tests/html/meteoblue.html'
+    test_file = 'tests/fixtures/meteoblue.html'
     return weather._load_root_from_file(test_file)
 
 
@@ -114,7 +114,7 @@ def test_forecast_page_noresult():
 def test_forecast_page_success():
     """ Test forecast_page function """
 
-    with io.open('tests/html/meteoblue.html', encoding='utf-8') as f:
+    with io.open('tests/fixtures/meteoblue.html', encoding='utf-8') as f:
         html = f.read()
 
     weather.get_result_url = mock.Mock(return_value="url")
