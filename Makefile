@@ -9,6 +9,10 @@ test:
 	py.test
 
 
+manualtest:
+	python tests/manual.py
+
+
 coverage:
 # pytest --cov=tengri
 	py.test --cov=tengri --cov-report term-missing 
