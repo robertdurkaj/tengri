@@ -45,15 +45,14 @@ def _mountain_page():
     site = 'mountain-forecast.com'
     table = './/div[@id="forecast-cont"]/table'
     lines = (
-        ('',            './/ul[@id="breadcrumbs"]'),
-        ('',            './/ul[@class="elev"]/li[@class="active"]'),
-        ('',            table + '/tr[3]/td[2]'),
-        ('Summary',     table + '/tr[8]/td[4]'),
-        ('High temp',   table + '/tr[11]/td[4]/span'),
-        ('Low temp',    table + '/tr[12]/td[4]/span'),
-        ('Wind',        table + '/tr[7]/td[4]/div/span'),
-        ('Rain',        table + '/tr[9]/td[4]/b/span'),
-        ('Snow',        table + '/tr[10]/td[4]/b/span'),
+        ('',            './/title'),
+        ('',            table + '/thead/tr[2]/td[2]/button/div'),
+        ('Summary',     table + '/tbody/tr[3]/td[3]'),
+        ('High temp',   table + '/tbody/tr[7]/td[3]/span/span'),
+        ('Low temp',    table + '/tbody/tr[8]/td[3]/span/spa'),
+        ('Wind',        table + '/tbody/tr[2]/td[3]/div/div/span'),
+        ('Rain',        table + '/tbody/tr[5]/td[3]/span/span'),
+        ('Snow',        table + '/tbody/tr[6]/td[3]/span/span'),
     )
     return locals()
 
